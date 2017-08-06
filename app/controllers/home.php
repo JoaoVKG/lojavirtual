@@ -2,10 +2,9 @@
 
 class Home extends Controller {
 
-    public function index($name='') {
+    public function index($id='') {
         $user = $this->model('Usuario');
-        $user->name = 'João';
-        $data['numero'] = $user->getUsuarioById(1);
+        $data['numero'] = $user->getUsuarioById($id);
         $data['titulo'] = 'Início';
 
         $this->view('home/index', $data);
