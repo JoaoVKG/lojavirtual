@@ -7,7 +7,8 @@ class Controller {
         return new $model();
     }
 
-    public function view($view, $data=[]) {
+    public function view($view, $data=[], $base_url='http://localhost/lojavirtual') {
+        $base_url = "http://" . $_SERVER['SERVER_NAME'] . "/lojavirtual";
         foreach ($data as $key => $value) {
             $$key = $value;
         }
