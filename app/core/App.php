@@ -8,8 +8,22 @@ class App {
 
     protected $params = [];
 
+
     public function __construct() {
         $url = $this->parseUrl();
+
+        require_once '../app/config/routes.php';
+
+        foreach ($routes as $key => $route) {
+            $urlJunta = [];
+            if ($url) {
+                $urlJunta = $url;
+            }
+            $urlJunta = implode('/', $urlJunta);
+            if ($urlJunta == $key) {
+                $url = $this->parseRouteUrl($route);
+            }
+        }
 
         if (file_exists('../app/controllers/' . $url[0] . '.php')) {
             $this->controller = $url[0];
@@ -38,5 +52,13 @@ class App {
             return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
     }
+
+    public function parseRouteUrl($route) {
+       
+        return $url = explode('/', filter_var(rtrim($route, '/'), FILTER_SANITIZE_URL));
+        
+    }
+
+    
 
 }
