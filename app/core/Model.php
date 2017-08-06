@@ -2,6 +2,12 @@
 
 class Model {
 
+    public $db;
+    
+    public function __construct() {
+        $this->db = $this->connect_database();
+    }
+
     public function connect_database() {
         $mysqli = new mysqli(
             'localhost',
@@ -15,7 +21,6 @@ class Model {
         if ($mysqli->connect_errno) {
             echo "Falha ao tentar conectar com o MySQL: " . $mysqli->connect_error;
         }
-
         return $mysqli;
     }
 

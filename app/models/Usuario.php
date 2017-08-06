@@ -3,10 +3,13 @@
 class Usuario extends Model {
     public $name;
 
-    public function getUsuarioById($id) {
+    public function __construct() {
+        parent::__construct();
+    }
 
-        $db = $this->connect_database();
-        $query = $db->prepare("SELECT * FROM usuario WHERE id_usuario=?");
+    public function getUsuarioById($id) {
+        
+        $query = $this->db->prepare("SELECT * FROM usuario WHERE id_usuario=?");
         $query->bind_param('i', $id);
         $query->execute();
         $resultado = $this->get_data($query->get_result());
