@@ -28,7 +28,7 @@
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" action="usuario/cadastrar" method="post">
         <h2 class="form-signin-heading text-center">Cadastro</h2>
         <label for="inputName" class="sr-only">Nome</label>
         <input type="text" id="inputName" class="form-control" name="nome" placeholder="Nome" required autofocus>
@@ -36,7 +36,7 @@
         <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" required autofocus>
         <label for="inputPassword" class="sr-only">Senha</label>
         <input type="password" id="inputPassword" class="form-control" name="senha" placeholder="Senha" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
       </form>
 
     </div> <!-- /container -->

@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +46,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <?php if (!isset($_SESSION)) : ?>
+                <?php if (!isset($_SESSION['usuario'])) : ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="login">Entrar</a>
@@ -56,7 +60,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span> 
-                        Nome
+                        <?=$_SESSION['usuario']['nome']?>
                         <span class="glyphicon glyphicon-menu-down"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -69,10 +73,10 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="text-left"><strong>Nome</strong></p>
-                                        <p class="text-left small">email@email.com</p>
+                                        <p class="text-left"><strong><?=$_SESSION['usuario']['nome']?></strong></p>
+                                        <p class="text-left small"><?=$_SESSION['usuario']['email']?></p>
                                         <p class="text-left">
-                                            <a href="#" class="btn btn-primary btn-block btn-sm">Carrinho</a>
+                                            <a href="carrinho" class="btn btn-primary btn-block btn-sm">Carrinho</a>
                                         </p>
                                     </div>
                                 </div>
@@ -84,7 +88,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <p>
-                                            <a href="#" class="btn btn-danger btn-block">Sair</a>
+                                            <a href="logout" class="btn btn-danger btn-block">Sair</a>
                                         </p>
                                     </div>
                                 </div>

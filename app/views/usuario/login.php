@@ -28,7 +28,7 @@
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" action="usuario/login" method="post">
         <h2 class="form-signin-heading text-center">Login</h2>
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" required autofocus>
