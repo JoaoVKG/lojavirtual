@@ -142,14 +142,9 @@ session_start();
 					<div class="product-price">R$ <?=number_format($produto[0]['preco'], 2, ',', '')?></div>
 					<hr>
 					<div class="btn-group cart">
-						<button type="button" class="btn btn-primary">
+						<a href="<?=$base_url?>/produto/adicionarcarrinho/<?=$produto[0]['id_produto']?>" class="btn btn-primary">
 							Adicionar ao carrinho
-						</button>
-					</div>
-					<div class="btn-group buy">
-						<button type="button" class="btn btn-success">
-							Comprar
-						</button>
+						</a>
 					</div>
 				</div>
 			</div> 

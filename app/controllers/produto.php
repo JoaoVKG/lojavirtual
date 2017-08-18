@@ -17,7 +17,7 @@ class Produto extends Controller {
         } elseif(isset($_SESSION['carrinho'])) {
             array_push($_SESSION['carrinho'], $id);
         }
-        header('Location: /lojavirtual');
+        header('Location: /lojavirtual/carrinho');
     }
 
     public function removercarrinho($id) {
@@ -30,6 +30,7 @@ class Produto extends Controller {
     
     public function comprar() {
         session_start();
+        ini_set('max_execution_time', 300);
         if (!isset($_SESSION['usuario'])) {
             header('Location: /lojavirtual/login');
         } else {
@@ -83,12 +84,15 @@ class Produto extends Controller {
             $headers .= 'From:  ' . $fromName . ' <' . $fromEmail .'>' . " \r\n" .
             'Reply-To: '.  $fromEmail . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
-            $success = mail($to, $subject, $message, $headers);
+            $success = false;
+            if(isset($_SESSION['carrinho'])) {
+                $success = mail($to, $subject, $message, $headers);
+            }
             if($success) {
-                echo "email aceito";
+                unset($_SESSION['carrinho']);
+                header("Location: /lojavirtual");
             } else {
-                echo "email não aceito";
-                print_r(error_get_last());
+                header("Location: /lojavirtual/carrinho");
             }
             
         }
