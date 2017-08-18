@@ -48,54 +48,34 @@ class Produto extends Controller {
 
             $to      = $_SESSION['usuario']['email'];
             $subject = 'Compra realizada com sucesso!';
-            $message = '<div class="col-md-9">
-                <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-                <div class="col-md-12">
-                    <div class="panel panel-info panel-shadow">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
+            $message = '<table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Produto</th>
-                                            <th>Nome</th>
+                                            <th style="float: left">Produto</th>
                                             <th>Quantidade</th>
                                             <th>Preço</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    <?php
-                                    $soma = 0.00;
-                                    ?>
-                                    <?php foreach ($produtos as $produto) : ?>
-                                        <tr>
-                                            <td><img src="<?=$base_url?>/images/<?=$produto[0]["id_produto"]?>.jpg" class="img-cart"></td>
-                                            <td>
-                                                <strong><?=$produto[0]["nome"]?></strong>
-                                            </td>
-                                            <td>
-                                                <center><?=$produto["qtd"]?><center>
-                                            </td>
-                                            <td>R$ <?=number_format($produto[0]["preco"], 2, ",", "")?></td>
-                                            <td>R$ <?=(number_format($produto[0]["preco"] * $produto["qtd"], 2, ",", ""))?></td>
-                                        </tr>
-                                        <?php
-                                        $soma += ($produto[0]["preco"] * $produto["qtd"]);
-                                        $soma = number_format($soma, 2, ".", "")
-                                        ?>
-                                    <?php endforeach;?>
-                                        <tr>
-                                            <td colspan="4" class="text-right"><strong>Total</strong></td>
-                                            <td>R$ <?=$soma?></td>
-                                        </tr>      
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>';
+                                    <tbody>';
+            $soma = 0.00;
+       
+            foreach ($produtos as $produto) {
+            $message .= '<tr>
+                        <td>
+                            '.$produto[0]["nome"].'
+                        </td>
+                        <td>
+                            <center>'.$produto["qtd"].'<center>
+                        </td>
+                        <td>R$ ' . number_format($produto[0]["preco"], 2, ",", "").'</td>
+                        <td>R$ ' . number_format($produto[0]["preco"] * $produto["qtd"], 2, ",", "") . '</td>
+                    </tr>';
+                    
+                    $soma += ($produto[0]["preco"] * $produto["qtd"]);
+                    $soma = number_format($soma, 2, ".", "");
+            }
+            $message .= '<tr><td colspan="3" class="text-right"><strong>Total</strong></td><td>R$ '.$soma.'</td></tr></tbody></table>';
             $headers = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $fromName = "Loja";
