@@ -12,6 +12,11 @@ body {
     width: 100%;
 }
 
+.product-image {
+    width: 260px !important;
+    height: 260px !important;
+}
+
 .carousel-holder {
     margin-bottom: 30px;
 }

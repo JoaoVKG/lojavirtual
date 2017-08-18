@@ -1,7 +1,6 @@
 <?php
 
 class UsuarioModel extends Model {
-    public $name;
 
     public function __construct() {
         parent::__construct();
@@ -34,6 +33,15 @@ class UsuarioModel extends Model {
     public function getUsuarioByEmail($email) {
         $query = $this->db->prepare("SELECT * FROM usuario WHERE email=?");
         $query->bind_param('s', $email);
+        $query->execute();
+        $resultado = $this->get_data($query->get_result());
+        $query->close();
+        return $resultado;
+    }
+
+    public function getUsuarioByEmailSenha($email, $senha) {
+        $query = $this->db->prepare("SELECT * FROM usuario WHERE email=? AND senha=?");
+        $query->bind_param('ss', $email, $senha);
         $query->execute();
         $resultado = $this->get_data($query->get_result());
         $query->close();

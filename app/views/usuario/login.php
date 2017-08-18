@@ -28,7 +28,7 @@
 
     <div class="container">
 
-      <form class="form-signin" action="usuario/login" method="post">
+      <form class="form-signin" action="/lojavirtual/usuario/login" method="post">
         <h2 class="form-signin-heading text-center">Login</h2>
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" required autofocus>
@@ -36,6 +36,15 @@
         <input type="password" id="inputPassword" class="form-control" name="senha" placeholder="Senha" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
       </form>
+      <?php if ($erros) : ?>
+      <div class="alert alert-danger">
+        <ul>
+          <li>
+            <?=$erros?>
+          </li>
+        </ul>
+      </div>
+      <?php endif;?>
 
     </div> <!-- /container -->
 

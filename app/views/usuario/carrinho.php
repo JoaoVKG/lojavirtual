@@ -46,7 +46,8 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <?php if (!isset($_SESSION)) : ?>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <?php if (!isset($_SESSION['usuario'])) : ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="login">Entrar</a>
@@ -57,47 +58,47 @@
                 </ul>
                 <?php else : ?>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span> 
-                        Nome
+                        <?=$_SESSION['usuario']['nome']?>
                         <span class="glyphicon glyphicon-menu-down"></span>
                     </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="navbar-login">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <p class="text-center">
-                                                <span class="glyphicon glyphicon-user icon-size"></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <p class="text-left"><strong>Nome</strong></p>
-                                            <p class="text-left small">email@email.com</p>
-                                            <p class="text-left">
-                                                <a href="#" class="btn btn-primary btn-block btn-sm">Carrinho</a>
-                                            </p>
-                                        </div>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="text-left"><strong><?=$_SESSION['usuario']['nome']?></strong></p>
+                                        <p class="text-left small"><?=$_SESSION['usuario']['email']?></p>
+                                        <p class="text-left">
+                                            <a href="carrinho" class="btn btn-primary btn-block btn-sm">Carrinho</a>
+                                        </p>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="navbar-login navbar-login-session">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <p>
-                                                <a href="#" class="btn btn-danger btn-block">Sair</a>
-                                            </p>
-                                        </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="logout" class="btn btn-danger btn-block">Sair</a>
+                                        </p>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <?php endif; ?>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <?php endif; ?>
 
             </div>
             <!-- /.navbar-collapse -->
@@ -114,10 +115,9 @@
                 <p class="lead">Loja</p>
                 <div class="list-group">
                     <a href="/lojavirtual" class="list-group-item"><span class="glyphicon glyphicon-th-list"></span> Produtos</a>
-                    <a href="carrinho" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho</a>
+                    <a href="carrinho" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho (<?=$qtd_carrinho?>)</a>
                 </div>
             </div>
-
             <div class="col-md-9">
 
                 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
@@ -133,36 +133,43 @@
                                             <th>Quantidade</th>
                                             <th>Preço</th>
                                             <th>Total</th>
+                                            <th>     </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php
+                                    $soma = 0.00;
+                                    ?>
+                                    <?php foreach ($produtos as $produto) : ?>
                                         <tr>
-                                            <td><img src="https://lorempixel.com/400/200/fashion/2/" class="img-cart"></td>
+                                            <td><img src="<?=$base_url?>/images/<?=$produto[0]['id_produto']?>.jpg" class="img-cart"></td>
                                             <td>
-                                                <strong>Product 1</strong>
+                                                <strong><?=$produto[0]['nome']?></strong>
                                             </td>
                                             <td>
-                                                <input class="form-control input-qtd" type="text" value="1"><a href="#" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                <center><?=$produto['qtd']?><center>
                                             </td>
-                                            <td>$54.00</td>
-                                            <td>$54.00</td>
+                                            <td>R$ <?=number_format($produto[0]['preco'], 2, ',', '')?></td>
+                                            <td>R$ <?=(number_format($produto[0]['preco'] * $produto['qtd'], 2, ',', ''))?></td>
+                                            <td><a href="<?=$base_url?>/produto/removercarrinho/<?=$produto[0]['id_produto']?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-right">Total Product</td>
-                                            <td>$86.00</td>
-                                        </tr>
-
+                                        <?php
+                                        $soma += ($produto[0]['preco'] * $produto['qtd']);
+                                        $soma = number_format($soma, 2, '.', '')
+                                        ?>
+                                    <?php endforeach;?>
                                         <tr>
                                             <td colspan="4" class="text-right"><strong>Total</strong></td>
-                                            <td>$88.00</td>
+                                            <td>R$ <?=$soma?></td>
                                         </tr>
 
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div> <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continuar comprando</a>
-                    <a href="#" class="btn btn-success pull-right">Comprar<span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div> <a href="/lojavirtual" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continuar comprando</a>
+                    <a href="/lojavirtual/comprar" class="btn btn-success pull-right">Comprar<span class="glyphicon glyphicon-chevron-right"></span></a>
                 </div>
 
 
@@ -183,7 +190,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Loja 2017</p>
                 </div>
             </div>
         </footer>

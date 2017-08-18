@@ -28,7 +28,7 @@
 
     <div class="container">
 
-      <form class="form-signin" action="usuario/cadastrar" method="post">
+      <form class="form-signin" action="/lojavirtual/usuario/cadastrar" method="post">
         <h2 class="form-signin-heading text-center">Cadastro</h2>
         <label for="inputName" class="sr-only">Nome</label>
         <input type="text" id="inputName" class="form-control" name="nome" placeholder="Nome" required autofocus>
@@ -38,6 +38,15 @@
         <input type="password" id="inputPassword" class="form-control" name="senha" placeholder="Senha" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
       </form>
+      <?php if ($erros) : ?>
+      <div class="alert alert-danger">
+        <ul>
+          <li>
+            <?=$erros?>
+          </li>
+        </ul>
+      </div>
+      <?php endif;?>
 
     </div> <!-- /container -->
 
