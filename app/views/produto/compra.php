@@ -9,12 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?=$produto[0]['nome']?></title>
+    <title><?=$titulo?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?=$base_url?>/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="<?=$base_url?>/css/produto.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<?=$base_url?>/css/shop-homepage.css" rel="stylesheet">
@@ -105,80 +103,9 @@
 
     <!-- Page Content -->
     <div class="container">
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">Loja</p>
-                <div class="list-group">
-                    <a href="/lojavirtual" class="list-group-item"><span class="glyphicon glyphicon-th-list"></span> Produtos</a>
-                    <a href="/lojavirtual/carrinho" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho (<?=$qtd_carrinho?>)</a>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="container-fluid">
-    <div class="content-wrapper">	
-		<div class="item-container">	
-			<div class="container">	
-				<div class="col-md-5">
-					<div class="product">
-					
-                        <img class="img-responsive center-block" id="item-display" src="<?=$base_url?>/images/<?=$produto[0]['id_produto']?>.jpg" alt=""></img>
-					
-					</div>
-				</div>
-					
-				<div class="col-md-7">
-					<div class="product-title"><?=$produto[0]['nome']?></div>
-					<hr>
-					<div class="product-price">R$ <?=number_format($produto[0]['preco'], 2, ',', '')?></div>
-					<hr>
-					<div class="btn-group cart">
-						<a href="<?=$base_url?>/produto/adicionarcarrinho/<?=$produto[0]['id_produto']?>" class="btn btn-primary">
-							Adicionar ao carrinho
-						</a>
-					</div>
-				</div>
-			</div> 
-		</div>
-		<div class="container-fluid">		
-			<div class="col-md-12 product-info">
-					<ul id="myTab" class="nav nav-tabs nav_tabs">
-						
-						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIÇÃO</a></li>
-						
-					</ul>
-				<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade in active" id="service-one">
-						 
-							<section class="container product-info">
-								<?=$produto[0]['descricao']?>
-							</section>
-										  
-						</div>
-					<div class="tab-pane fade" id="service-two">
-						
-						<section class="container">
-								
-						</section>
-						
-					</div>
-					<div class="tab-pane fade" id="service-three">
-												
-					</div>
-				</div>
-				<hr>
-			</div>
-		</div>
-	</div>
-</div>
-
-            </div>
-
-        </div>
-
+        <h1 class="text-center"><?=$titulo?></h1>
+        <?=$msg_html?>
+        <a href="/lojavirtual" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Voltar para a página inicial</a>
     </div>
     <!-- /.container -->
 

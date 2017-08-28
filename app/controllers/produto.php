@@ -5,7 +5,15 @@ class Produto extends Controller {
     public function index($id='') {
         $produto = $this->model('ProdutoModel');
         $data['produto'] = $produto->getProdutoById($id);
-
+        $data['qtd_carrinho'] = 0;
+        session_start();
+        if(isset($_SESSION['carrinho'])) {
+            $counts = array_count_values($_SESSION['carrinho']);
+            $data['teste'] = $counts;
+            foreach ($counts as $key => $value) {
+                $data['qtd_carrinho'] += $value;
+            }
+        }
         $this->view('produto/index', $data);
     }
     
@@ -31,6 +39,7 @@ class Produto extends Controller {
     public function comprar() {
         session_start();
         ini_set('max_execution_time', 300);
+        $data['titulo'] = 'Compra realizada com sucesso!';
         if (!isset($_SESSION['usuario'])) {
             header('Location: /lojavirtual/login');
         } else {
@@ -77,6 +86,7 @@ class Produto extends Controller {
                     $soma = number_format($soma, 2, ".", "");
             }
             $message .= '<tr><td colspan="3" class="text-right"><strong>Total</strong></td><td>R$ '.$soma.'</td></tr></tbody></table>';
+            $data['msg_html'] = $message;
             $headers = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $fromName = "Loja";
@@ -90,7 +100,7 @@ class Produto extends Controller {
             }
             if($success) {
                 unset($_SESSION['carrinho']);
-                header("Location: /lojavirtual");
+                $this->view('produto/compra', $data);
             } else {
                 header("Location: /lojavirtual/carrinho");
             }
